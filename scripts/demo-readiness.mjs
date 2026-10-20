@@ -8,6 +8,7 @@ export const DEMO_ROUTES = [
   { path: '/authorize/:id', heading: '授权外部 Agent', reads: [], content: '[data-testid="agent-authorize-demo"]' },
   { path: '/ai-providers', heading: 'AI 提供商', reads: ['/management/providers'], content: '.providers-page .ant-table-row' },
   { path: '/api-keys', heading: '密钥管理', reads: ['/management/api-keys'], content: '.keys-page .ant-table-row' },
+  { path: '/account-ops', heading: '账号运维', reads: [], content: '[data-testid="account-ops-demo"]' },
   { path: '/oauth-management', heading: 'OAuth 管理', reads: ['/management/auth-files'], content: '[data-testid="oauth-credential-record"]' },
   { path: '/logs', heading: '日志', reads: ['/management/logs/status', '/management/logs'], content: '.logs-page .log-line' },
   { path: '/audit', heading: '操作审计', reads: ['/management/audit/events', '/management/audit/summary'], content: '[data-testid="audit-entry"]' },

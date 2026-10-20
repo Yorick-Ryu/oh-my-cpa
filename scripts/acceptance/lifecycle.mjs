@@ -1,4 +1,5 @@
 import { once } from 'node:events';
+import { until } from './harness.mjs';
 
 const BROWSER_SERVERS = new WeakMap();
 
@@ -32,20 +33,37 @@ export async function stopProcess(child, milliseconds = 2000, { isGroup = false 
   const ownsGroup = isGroup && process.platform !== 'win32' && child.pid;
   if (hasExited && !ownsGroup) return;
   const closed = hasExited ? Promise.resolve() : once(child, 'close');
-  const terminate = signal => {
+  const terminate = async signal => {
     if (ownsGroup) {
-      try { process.kill(-child.pid, signal); } catch (error) { if (error.code !== 'ESRCH') throw error; }
+      try { process.kill(-child.pid, signal); } catch (error) {
+        if (error.code === 'ESRCH') return;
+        // Darwin can report EPERM while the last orphaned group member exits.
+        // Accept that race only when a separate probe proves the group is gone.
+        if (error.code === 'EPERM') {
+          try {
+            await until(() => {
+              try { process.kill(-child.pid, 0); return false; } catch (probeError) {
+                if (probeError.code === 'ESRCH') return true;
+                if (probeError.code !== 'EPERM') throw probeError;
+                return false;
+              }
+            }, { label: 'owned process group exited', timeoutMs: 250 });
+            return;
+          } catch { /* Preserve the original permission failure when ownership is unresolved. */ }
+        }
+        throw error;
+      }
     } else child.kill(signal);
   };
-  terminate('SIGTERM');
+  await terminate('SIGTERM');
   try { await withinBudget(closed, milliseconds, 'process shutdown'); }
   catch {
-    terminate('SIGKILL');
+    await terminate('SIGKILL');
     await withinBudget(closed, milliseconds, 'forced process shutdown');
   } finally {
     // A detached parent's close does not prove its descendants exited. Its group
     // remains ours even after that parent exits, so no inherited worker may outlive it.
-    if (ownsGroup) terminate('SIGKILL');
+    if (ownsGroup) await terminate('SIGKILL');
   }
 }
 

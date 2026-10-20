@@ -337,6 +337,9 @@ func (h *Handler) routes() chi.Router {
 				v1.Get("/management/system/maintenance", h.getSystemMaintenance)
 				v1.Post("/management/system/maintenance/checkpoint", h.postSystemMaintenanceCheckpoint)
 				v1.Post("/management/system/maintenance/vacuum", h.postSystemMaintenanceVacuum)
+				for _, method := range []string{http.MethodGet, http.MethodPost, http.MethodPut} {
+					v1.Method(method, "/management/account-ops/*", http.HandlerFunc(h.accountOps))
+				}
 				v1.Get("/management/plugins", h.listPlugins)
 				v1.Get("/management/plugins/settings", h.getPluginSettings)
 				v1.Put("/management/plugins/settings", h.putPluginSettings)

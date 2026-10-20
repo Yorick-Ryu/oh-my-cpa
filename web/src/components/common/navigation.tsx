@@ -50,6 +50,7 @@ export const STATIC_NAV_GROUPS: readonly NavGroup[] = [
       // is authorised, rather than interleaving the two sides.
       { key: '/ai-providers', labelKey: 'nav.providers', icon: <CloudServerOutlined /> },
       // Authentication, credential management and quota are one credential-centred workspace.
+      { key: '/account-ops', labelKey: 'ops.title', icon: <ControlOutlined /> },
       { key: '/oauth-management', labelKey: 'nav.auth_files', icon: <LoginOutlined /> },
       { key: '/api-keys', labelKey: 'nav.api_keys', icon: <KeyOutlined /> },
     ],

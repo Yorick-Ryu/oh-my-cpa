@@ -641,3 +641,10 @@ supplied. The public demonstration refuses consuming and policy-write routes.
 
 Warmup round ordering is oldest observation first. Fleets exceeding a round's capacity
 remain queued rather than increasing concurrency or skipping protection.
+
+## Account operations worker
+
+The optional account operations page requires the matching CPA v8 worker adapter.
+See [Account operations](account-operations.md) for its data boundaries, deployment
+capabilities and verification. Its encryption key and SQLite state are independent
+of the OMC database and master key; preserve each pair during backup and recovery.

@@ -74,6 +74,8 @@ const AGENT_SCENARIOS = ['agent', 'agent-external', 'agent-question', 'agent-liv
  * directory can be named without listing its files.
  */
 const SCENARIO_PATHS = [
+  { prefix: 'web/src/pages/accountOps/', scenarios: ['account-ops', 'account-ops-narrow'] },
+  { prefix: 'web/src/api/accountOps', scenarios: ['account-ops', 'account-ops-narrow'] },
   { prefix: 'web/src/pages/agent/', scenarios: AGENT_SCENARIOS },
   { prefix: 'web/src/pages/playground/', scenarios: ['playground', 'playground-narrow', 'mobile-console'] },
   // The run protocol, stream reader and exports: the Agent runs on all of it, and the Playground

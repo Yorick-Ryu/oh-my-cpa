@@ -98,7 +98,7 @@ describe('sidebar visibility panel', () => {
     // puts them.
     expect(titles).toEqual([
       'Dashboard', 'Agent', 'Playground', 'Model Square',
-      'AI providers', 'OAuth management', 'Key management',
+      'AI providers', 'Account operations', 'OAuth management', 'Key management',
       'Request Events', 'Cost & Usage', 'Logs', 'Audit trail',
       'Plugin management', 'Plugin store',
       'Config', 'OMC Settings', 'System Information',

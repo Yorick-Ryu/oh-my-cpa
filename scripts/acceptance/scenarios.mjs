@@ -1,3 +1,4 @@
+import { accountOpsPage, accountOpsFixtures } from './probes/accountOps.mjs';
 import { modelSquare, modelSquareFixtures, modelSquareLedgerFixtures } from './probes/modelSquare.mjs';
 import { mobileConsole } from './probes/mobileConsole.mjs';
 import { routeRenderError, routeLazyError } from './probes/routeError.mjs';
@@ -163,6 +164,8 @@ const PHONE_LIST_ROUTES = [
 ];
 
 export const SCENARIOS = [
+  { id: 'account-ops', name: 'account operations previews redact secrets and task details survive reload', options: { routes: accountOpsFixtures() }, run: accountOpsPage },
+  { id: 'account-ops-narrow', name: 'account operations fit a phone', options: { routes: accountOpsFixtures(), viewport: { width: 390, height: 844 } }, run: accountOpsPage },
   {
     id: 'route-render-error',
     name: 'route render failures show branded recovery in every language and theme',

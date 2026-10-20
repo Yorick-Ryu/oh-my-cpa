@@ -191,7 +191,7 @@ export async function runConfigurationPluginsAcceptance({
       await page.locator('.monaco-editor .view-lines').first().waitFor({ state: 'visible' });
       // The native provider and serializer fallback have different flow delimiter spacing.
       await page.locator('.monaco-editor .view-lines').first().click();
-      await page.keyboard.press('Control+Home');
+      await page.keyboard.press(process.platform === 'darwin' ? 'Meta+ArrowUp' : 'Control+Home');
       await page.keyboard.insertText('native-format-proof: [1,2,3]\n');
       await sourceToolbar.getByRole('button', { name: /^(格式化|Format)$/ }).click();
       await page.locator('.omc-toast').filter({ hasText: /YAML 已格式化|YAML formatted/ }).waitFor({ state: 'visible' });

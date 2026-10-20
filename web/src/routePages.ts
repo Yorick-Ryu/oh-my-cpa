@@ -59,3 +59,6 @@ export const PluginsPage = React.lazy(loadPluginsPage);
 
 export const loadOmcSettingsPage = createPageLoader(() => import('./pages/OmcSettingsPage'), 'OmcSettingsPage');
 export const OmcSettingsPage = React.lazy(loadOmcSettingsPage);
+
+export const loadAccountOpsPage = createPageLoader(() => import('./pages/accountOps/AccountOpsPage'), 'AccountOpsPage');
+export const AccountOpsPage = React.lazy(loadAccountOpsPage);

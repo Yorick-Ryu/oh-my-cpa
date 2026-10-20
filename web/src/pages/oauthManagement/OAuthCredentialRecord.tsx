@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { App as AntdApp, Button, Checkbox, Dropdown, Tooltip, Typography } from 'antd';
 import { Switch } from '../../components/common/Switch';
 import {
@@ -80,6 +81,7 @@ export const OAuthCredentialRecord: React.FC<OAuthCredentialRecordProps> = ({
   reauthAction,
 }) => {
   const t = useT();
+  const navigate = useNavigate();
   const { modal } = AntdApp.useApp();
   const isDemo = isDemoMode();
   const identity = deriveAuthFileIdentity(file);
@@ -247,6 +249,7 @@ export const OAuthCredentialRecord: React.FC<OAuthCredentialRecordProps> = ({
                 label: t('quota.clear_cooldown'),
                 disabled: busy || isDemo || !canClearCooldown,
               },
+              { key: 'account-ops', label: t('ops.title'), disabled: busy || isDemo || displayProvider.toLowerCase() !== 'codex' },
               { type: 'divider' as const },
               {
                 key: 'download',
@@ -263,6 +266,10 @@ export const OAuthCredentialRecord: React.FC<OAuthCredentialRecordProps> = ({
               },
             ],
             onClick: ({ key }) => {
+              if (key === 'account-ops') {
+                navigate(`/account-ops?tab=import&email=${encodeURIComponent(file.email || '')}`);
+                return;
+              }
               if (key === 'models') {
                 onShowModels();
                 return;

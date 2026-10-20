@@ -1,0 +1,9 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--omc-space-4, 16px);
+  min-width: 0;
+}
+.form {
+  width: 100%;
+}

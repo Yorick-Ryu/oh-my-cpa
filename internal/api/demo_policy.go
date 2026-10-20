@@ -249,6 +249,9 @@ var demoPolicy = []demoPolicyRule{
 
 	// Plugin and store reads: the lists are fixture data, and a plugin's declared
 	// logo is never fetched because no fixture plugin publishes one.
+	{http.MethodGet, "/api/v1/management/account-ops/*", demoRefuse, "account operations require a private worker"},
+	{http.MethodPost, "/api/v1/management/account-ops/*", demoRefuse, "account operations require a private worker"},
+	{http.MethodPut, "/api/v1/management/account-ops/*", demoRefuse, "account operations require a private worker"},
 	{http.MethodGet, "/api/v1/management/plugins", demoAllow, ""},
 	{http.MethodGet, "/api/v1/management/plugins/settings", demoAllow, ""},
 	{http.MethodGet, "/api/v1/management/plugins/{id}/config", demoAllow, ""},

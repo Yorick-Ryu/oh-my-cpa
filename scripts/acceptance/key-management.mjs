@@ -166,7 +166,7 @@ export async function runKeyManagementAcceptance({
       document.body.appendChild(probe);
       probe.focus();
     });
-    await page.keyboard.press('Control+V');
+    await page.keyboard.press('ControlOrMeta+V');
     const pastedKey = await page.evaluate(
       () => document.querySelector('input[data-copy-probe]')?.value ?? '',
     );
@@ -259,7 +259,7 @@ export async function runKeyManagementAcceptance({
       document.body.appendChild(probe);
       probe.focus();
     });
-    await page.keyboard.press('Control+V');
+    await page.keyboard.press('ControlOrMeta+V');
     const pastedDraftKey = await page.evaluate(() => document.querySelector('input[data-copy-probe]')?.value ?? '');
     await page.evaluate(() => document.querySelector('input[data-copy-probe]')?.remove());
     check(
